@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about the user and their travel preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "interests": { "type": "array", "items": { "type": "string" }, "description": "e.g., surfing, yoga, coding" },
+        "bio": { "type": "string" },
+        "currentLocation": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Location": {
+      "title": "Slow Travel Location",
+      "description": "A specific residence or spot optimized for slow travel.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string" },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "pricePerMonth": { "type": "number" }
+      },
+      "required": ["name", "city", "country"]
+    },
+    "Community": {
+      "title": "Residence Community",
+      "description": "A group of people staying at or interested in a specific location.",
+      "type": "object",
+      "properties": {
+        "locationId": { "type": "string" },
+        "memberCount": { "type": "integer" },
+        "members": { "type": "array", "items": { "type": "string" }, "description": "UIDs of members in the formation group" },
+        "stage": { "type": "string", "enum": ["Interest", "Commitment", "Formation"], "description": "Current formation stage" }
+      }
+    },
+    "Message": {
+      "title": "Community Message",
+      "description": "Chat messages within a community.",
+      "type": "object",
+      "properties": {
+        "communityId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "text": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{uid}": { "schema": "User", "description": "User profiles" },
+    "/locations/{locationId}": { "schema": "Location", "description": "Available residences" },
+    "/communities/{communityId}": { "schema": "Community", "description": "Community data" },
+    "/communities/{communityId}/messages/{messageId}": { "schema": "Message", "description": "Chat history" }
+  }
+}

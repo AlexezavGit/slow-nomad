@@ -1,0 +1,5 @@
+{
+  "name": "Slow Nomad",
+  "description": "Interactive platform for slow travel location selection and community building.",
+  "requestFramePermissions": ["geolocation"]
+}
