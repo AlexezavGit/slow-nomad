@@ -779,6 +779,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(20,20,19,0.
 </style>
 </head>
 <body>
+<style>
+/* Native Clean Translate */
+.skiptranslate, iframe.skiptranslate { display: none !important; }
+body { top: 0px !important; }
+.lang-btn {
+  position: fixed; z-index: 999999; top: 16px; 
+  background: rgba(10,22,40,0.8); backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); padding: 6px 12px;
+  border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 11px;
+  font-family: inherit; font-weight: bold; transition: all 0.3s;
+}
+.lang-btn:hover, .lang-btn:focus { background: #10B981; color: #000; border-color: #10B981; }
+.lang-btn-en { right: 120px; }
+.lang-btn-es { right: 65px; }
+.lang-btn-uk { right: 10px; }
+</style>
+<div id="google_translate_element" style="display:none;"></div>
+<button class="lang-btn lang-btn-en" onclick="changeLang('en')">ENG</button>
+<button class="lang-btn lang-btn-es" onclick="changeLang('es')">ESP</button>
+<button class="lang-btn lang-btn-uk" onclick="changeLang('uk')">UKR</button>
+
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'auto', autoDisplay: false}, 'google_translate_element');
+}
+function changeLang(lang) {
+  var s = document.querySelector('#google_translate_element select');
+  if (s) {
+    s.value = lang;
+    s.dispatchEvent(new Event('change'));
+  }
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <nav>
   <div class="nlogo">Slow <span>Nomad</span></div>
