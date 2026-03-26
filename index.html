@@ -1246,5 +1246,73 @@ QD.forEach(phase=>{
   window._framesInited = {};
 })();
 </script>
+<!-- Auth Modal -->
+<div id="auth-modal">
+  <div class="auth-box">
+    <div id="close-modal">×</div>
+    <h2>Закритий доступ</h2>
+    <p>Будь ласка, представтесь, щоб отримати повний доступ до фінансової моделі та внутрішніх документів проекту.</p>
+    <form id="partner-form">
+      <input type="text" class="auth-input" name="name" placeholder="Ваше ім'я" required pattern=".{2,}" title="Мінімум 2 символи">
+      <input type="email" class="auth-input" name="email" placeholder="Email" required>
+      <button type="submit" class="auth-submit">Отримати доступ</button>
+    </form>
+    <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 15px;">Secure connection. No spam.</div>
+  </div>
+</div>
+<style>
+#auth-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 1000000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+#auth-modal.active { opacity: 1; pointer-events: auto; }
+.auth-box { background: #0A1628; border: 1px solid rgba(16,185,129,0.3); padding: 40px; border-radius: 16px; width: 90%; max-width: 380px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.auth-box h2 { color: #fff; margin: 0 0 10px; font-size: 22px; font-weight: bold; }
+.auth-box p { color: rgba(255,255,255,0.6); margin: 0 0 25px; font-size: 13px; line-height: 1.5; }
+.auth-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px 16px; border-radius: 8px; margin-bottom: 15px; font-family: inherit; font-size: 14px; box-sizing: border-box; outline: none; transition: all 0.3s; }
+.auth-input:focus { border-color: #10B981; }
+.auth-submit { width: 100%; padding: 14px; background: #10B981; color: #000; font-weight: bold; font-family: inherit; font-size: 15px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+.auth-submit:hover { box-shadow: 0 0 20px rgba(16,185,129,0.5); transform: translateY(-2px); }
+#close-modal { position: absolute; top: 15px; right: 20px; color: rgba(255,255,255,0.4); font-size: 28px; cursor: pointer; transition: 0.3s; line-height: 1; font-weight: 300; }
+#close-modal:hover { color: #fff; }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const links = document.querySelectorAll('.doc-btn');
+  const modal = document.getElementById('auth-modal');
+  const form = document.getElementById('partner-form');
+  const submitBtn = form.querySelector('.auth-submit');
+  let pendingHref = '';
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // If user has not authenticated in this browser
+      if (!localStorage.getItem('slow_nomad_partner_auth')) {
+        e.preventDefault();
+        pendingHref = link.href;
+        modal.classList.add('active');
+      }
+    });
+  });
+
+  window.partnerAccessGranted = function() {
+    localStorage.setItem('slow_nomad_partner_auth', 'true');
+    modal.classList.remove('active');
+    submitBtn.textContent = 'Відкрити матеріали';
+    if (pendingHref) window.open(pendingHref, '_blank');
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitBtn.textContent = 'Отримання доступу...';
+    // SIMULATED AUTH DELAY: when you connect Google Forms or Formspree, the request will happen here.
+    // For now, it simply grants access after 1 second, saving the state.
+    setTimeout(() => {
+       window.partnerAccessGranted();
+    }, 1000);
+  });
+  
+  document.getElementById('close-modal').addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+});
+</script>
 </body>
 </html>
