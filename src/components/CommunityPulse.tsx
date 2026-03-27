@@ -39,15 +39,15 @@ export default function CommunityPulse({ location }: CommunityPulseProps) {
   return (
     <div className="bg-stone-900/50 rounded-2xl p-4 border border-white/5">
       <div className="flex items-center gap-2 mb-4">
-        <Activity size={14} className="text-emerald-500" />
-        <h3 className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Community Pulse</h3>
+        <Activity size={14} className="text-sky-500" />
+        <h3 className="text-[10px] font-bold uppercase tracking-widest text-sky-500">Community Pulse</h3>
         <span className="text-[8px] text-stone-500 uppercase ml-auto flex items-center gap-1">
           <Globe size={10} /> 10km Radius
         </span>
         {!loading && pulseData && (
           <button
             onClick={fetchPulse}
-            className="text-stone-600 hover:text-emerald-500 transition-colors ml-1"
+            className="text-stone-600 hover:text-sky-500 transition-colors ml-1"
             title="Refresh"
           >
             <RefreshCw size={10} />
@@ -57,7 +57,7 @@ export default function CommunityPulse({ location }: CommunityPulseProps) {
       
       {loading ? (
         <div className="flex items-center justify-center py-6">
-          <Loader2 size={20} className="text-emerald-500 animate-spin" />
+          <Loader2 size={20} className="text-sky-500 animate-spin" />
         </div>
       ) : (
         <div className="text-xs text-stone-300 leading-relaxed">

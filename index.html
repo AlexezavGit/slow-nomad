@@ -3,98 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>Slow Nomad | Community Map</title>
     <script>
-      (function() {
-        // Store original fetch
-        const originalFetch = window.fetch;
-
-        // Function to safely redefine fetch on a target
-        function safeRedefineFetch(target) {
-          try {
-            // Check if it's already redefined or if we can redefine it
-            const descriptor = Object.getOwnPropertyDescriptor(target, 'fetch');
-            if (descriptor && !descriptor.configurable) {
-              console.warn('fetch is not configurable');
-              return;
-            }
-
-            Object.defineProperty(target, 'fetch', {
-              get() { return originalFetch; },
-              set(v) { 
-                console.warn('Ignored attempt to overwrite fetch');
-                // We don't actually set it to keep the original functional
-              },
-              configurable: true,
-              enumerable: true
-            });
-          } catch (e) {
-            // If it fails, it's likely already a non-configurable getter
-            console.warn('Could not redefine fetch:', e.message);
-          }
-        }
-
-        // Try to redefine on all common global targets
-        safeRedefineFetch(window);
-        if (typeof Window !== 'undefined' && Window.prototype) safeRedefineFetch(Window.prototype);
-        if (typeof globalThis !== 'undefined') safeRedefineFetch(globalThis);
-        if (typeof self !== 'undefined') safeRedefineFetch(self);
-
-        // Safe polyfill for 'global' and 'process'
-        const g = typeof globalThis !== 'undefined' ? globalThis : 
-                  typeof self !== 'undefined' ? self : 
-                  typeof window !== 'undefined' ? window : {};
-        
-        if (g.global === undefined) {
-          const localState = {
-            fetch: originalFetch,
-            process: { env: { NODE_ENV: 'development' }, nextTick: (fn) => setTimeout(fn, 0) }
-          };
-
-          const globalProxy = new Proxy(g, {
-            get(target, prop) {
-              if (prop in localState) return localState[prop];
-              const val = target[prop];
-              // Bind functions to the original target to maintain context
-              if (typeof val === 'function') {
-                try {
-                  return val.bind(target);
-                } catch (e) {
-                  return val;
-                }
-              }
-              return val;
-            },
-            set(target, prop, value) {
-              // Intercept fetch to prevent errors
-              if (prop === 'fetch') {
-                console.warn('Intercepted fetch assignment on global proxy');
-                return true;
-              }
-              // Store in localState to avoid modifying read-only properties
-              localState[prop] = value;
-              return true;
-            },
-            has(target, prop) {
-              return prop in localState || prop in target;
-            }
-          });
-          
-          try {
-            Object.defineProperty(g, 'global', {
-              get() { return globalProxy; },
-              configurable: true
-            });
-          } catch (e) {
-            g.global = globalProxy;
-          }
-        }
-
-        // Ensure process exists
-        if (g.process === undefined) {
-          g.process = { env: { NODE_ENV: 'development' }, nextTick: (fn) => setTimeout(fn, 0) };
-        }
-      })();
+      window.global = window;
+      window.process = { env: { NODE_ENV: 'development' }, nextTick: (fn) => setTimeout(fn, 0) };
     </script>
   </head>
   <body>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Community Backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="bg-white shadow-lg rounded-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Nomad Community Backend</h1>
+            <p class="text-gray-600">Manage communities, users, and AI recommendations</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Communities Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-primary rounded-full p-3 mr-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Communities</h3>
+                        <p class="text-gray-600">Manage nomad communities</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-primary" id="communities-count">0</span>
+                    <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors" onclick="loadCommunities()">
+                        View All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Users Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-secondary rounded-full p-3 mr-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Users</h3>
+                        <p class="text-gray-600">Nomad users by journey type</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-secondary" id="users-count">0</span>
+                    <button class="bg-secondary text-white px-4 py-2 rounded hover:bg-green-600 transition-colors" onclick="loadUsers()">
+                        View All
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Insights Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-accent rounded-full p-3 mr-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">AI Insights</h3>
+                        <p class="text-gray-600">Gemini-powered recommendations</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-accent" id="insights-count">0</span>
+                    <button class="bg-accent text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors" onclick="loadInsights()">
+                        Generate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Journey Types Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-purple-500 rounded-full p-3 mr-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Journey Types</h3>
+                        <p class="text-gray-600">User journey categories</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-purple-500" id="journey-types-count">9</span>
+                    <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors" onclick="loadJourneyTypes()">
+                        View Types
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+                <div class="flex space-x-2">
+                    <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors" onclick="refreshData()">
+                        Refresh
+                    </button>
+                    <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors" onclick="exportData()">
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Status Section -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">System Status</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-green-50 border border-green-200 rounded p-4">
+                        <div class="flex items-center">
+                            <div class="bg-green-500 rounded-full p-2 mr-3">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-green-800">Backend Server</p>
+                                <p class="text-green-600 text-sm">Running on port 3001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded p-4">
+                        <div class="flex items-center">
+                            <div class="bg-green-500 rounded-full p-2 mr-3">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-green-800">Firebase</p>
+                                <p class="text-green-600 text-sm">Connected</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded p-4">
+                        <div class="flex items-center">
+                            <div class="bg-green-500 rounded-full p-2 mr-3">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-green-800">Gemini AI</p>
+                                <p class="text-green-600 text-sm">Available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Tables -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="activity-table">
+                            <tr>
+                                <td colspan="4" class="px-4 py-4 text-center text-gray-500">Loading activity data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API base URL
+        const API_BASE = 'http://localhost:3002/api';
+
+        // Load initial data
+        async function loadData() {
+            try {
+                // Load communities count
+                const communitiesResponse = await fetch(`${API_BASE}/communities`);
+                if (communitiesResponse.ok) {
+                    const communities = await communitiesResponse.json();
+                    document.getElementById('communities-count').textContent = communities.length || 0;
+                }
+
+                // Load users count
+                const usersResponse = await fetch(`${API_BASE}/users`);
+                if (usersResponse.ok) {
+                    const users = await usersResponse.json();
+                    document.getElementById('users-count').textContent = users.length || 0;
+                }
+
+                // Load insights count (placeholder)
+                document.getElementById('insights-count').textContent = '5'; // Placeholder
+
+                // Load activity (placeholder)
+                loadActivity();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // Load communities
+        async function loadCommunities() {
+            try {
+                const response = await fetch(`${API_BASE}/communities`);
+                if (response.ok) {
+                    const communities = await response.json();
+                    alert(`Loaded ${communities.length} communities`);
+                }
+            } catch (error) {
+                alert('Error loading communities: ' + error.message);
+            }
+        }
+
+        // Load users
+        async function loadUsers() {
+            try {
+                const response = await fetch(`${API_BASE}/users`);
+                if (response.ok) {
+                    const users = await response.json();
+                    const journeyCounts = {};
+                    users.forEach(user => {
+                        const journey = user.journeyType || 'unknown';
+                        journeyCounts[journey] = (journeyCounts[journey] || 0) + 1;
+                    });
+                    const message = Object.entries(journeyCounts)
+                        .map(([journey, count]) => `${journey}: ${count}`)
+                        .join('\n');
+                    alert(`Users by journey type:\n${message}`);
+                }
+            } catch (error) {
+                alert('Error loading users: ' + error.message);
+            }
+        }
+
+        // Load journey types
+        async function loadJourneyTypes() {
+            try {
+                const response = await fetch(`${API_BASE}/journey-types`);
+                if (response.ok) {
+                    const journeyTypes = await response.json();
+                    const message = journeyTypes.map(jt => `${jt.name}: ${jt.description}`).join('\n');
+                    alert(`Available journey types:\n${message}`);
+                }
+            } catch (error) {
+                alert('Error loading journey types: ' + error.message);
+            }
+        }
+
+        // Refresh data
+        function refreshData() {
+            loadData();
+        }
+
+        // Export data
+        function exportData() {
+            alert('Data export feature coming soon...');
+        }
+
+        // Load activity data
+        function loadActivity() {
+            const activityTable = document.getElementById('activity-table');
+            const sampleActivities = [
+                { time: '2024-01-15 10:30', action: 'Community Created', user: 'user1@example.com', details: 'New nomad group in Bali' },
+                { time: '2024-01-15 09:15', action: 'User Joined', user: 'user2@example.com', details: 'Joined Digital Nomads community' },
+                { time: '2024-01-14 16:45', action: 'AI Recommendation', user: 'system', details: 'Generated travel tips for Southeast Asia' }
+            ];
+
+            activityTable.innerHTML = sampleActivities.map(activity => `
+                <tr>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${activity.time}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${activity.action}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${activity.user}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${activity.details}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
+
+

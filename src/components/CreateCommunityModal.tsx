@@ -65,7 +65,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
       >
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Building className="text-emerald-500" />
+            <Building className="text-sky-500" />
             Create Community
           </h2>
           <button onClick={onClose} className="text-stone-400 hover:text-white transition-colors">
@@ -80,7 +80,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
           </div>
           <button 
             onClick={handleTestToggle}
-            className={`w-12 h-6 rounded-full transition-colors relative ${isTestLocation ? 'bg-emerald-500' : 'bg-stone-700'}`}
+            className={`w-12 h-6 rounded-full transition-colors relative ${isTestLocation ? 'bg-sky-500' : 'bg-stone-700'}`}
           >
             <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${isTestLocation ? 'left-7' : 'left-1'}`} />
           </button>
@@ -94,7 +94,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
               required
               value={formData.name}
               onChange={e => setFormData({...formData, name: e.target.value})}
-              className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+              className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
               placeholder="e.g. The Oasis"
             />
           </div>
@@ -107,7 +107,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
                 required
                 value={formData.city}
                 onChange={e => setFormData({...formData, city: e.target.value})}
-                className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
                 placeholder="e.g. Bali"
               />
             </div>
@@ -118,7 +118,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
                 required
                 value={formData.country}
                 onChange={e => setFormData({...formData, country: e.target.value})}
-                className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
                 placeholder="e.g. Indonesia"
               />
             </div>
@@ -129,7 +129,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
             <select 
               value={formData.stage}
               onChange={e => setFormData({...formData, stage: e.target.value})}
-              className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+              className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
             >
               <option value="Concept Phase">Concept Phase</option>
               <option value="Land Acquired">Land Acquired</option>
@@ -148,7 +148,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
                   required
                   value={formData.unitPurchasePrice}
                   onChange={e => setFormData({...formData, unitPurchasePrice: e.target.value})}
-                  className="w-full bg-stone-800 border border-white/10 rounded-xl pl-8 pr-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full bg-stone-800 border border-white/10 rounded-xl pl-8 pr-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
                   placeholder="150000"
                 />
               </div>
@@ -162,7 +162,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
                   required
                   value={formData.estimatedMonthlyLoanPayment}
                   onChange={e => setFormData({...formData, estimatedMonthlyLoanPayment: e.target.value})}
-                  className="w-full bg-stone-800 border border-white/10 rounded-xl pl-8 pr-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full bg-stone-800 border border-white/10 rounded-xl pl-8 pr-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
                   placeholder="850"
                 />
               </div>
@@ -176,7 +176,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
               rows={3}
               value={formData.description}
               onChange={e => setFormData({...formData, description: e.target.value})}
-              className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+              className="w-full bg-stone-800 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors resize-none"
               placeholder="Describe the vision for this community..."
             />
           </div>
@@ -184,7 +184,7 @@ export function CreateCommunityModal({ onClose, onSubmit }: CreateCommunityModal
           <div className="pt-4">
             <button 
               type="submit"
-              className="w-full bg-emerald-500 text-stone-950 font-bold py-3 rounded-xl hover:bg-emerald-400 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-sky-500 text-stone-950 font-bold py-3 rounded-xl hover:bg-sky-400 transition-colors flex items-center justify-center gap-2"
             >
               <CheckCircle2 size={18} />
               Create Community

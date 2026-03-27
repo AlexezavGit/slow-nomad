@@ -1,43 +1,50 @@
-import { GoogleGenAI } from "@google/genai";
+// API base URL - adjust if backend is on different port
+const API_BASE = 'http://localhost:3002/api';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
-
-const GEMINI_MODEL = "gemini-2.0-flash";
-
-export async function getRecommendations(interests: string[], currentCity?: string) {
-  const prompt = `You are a community building and long-term residency expert. Based on these interests: ${interests.join(", ")}${currentCity ? ` and current location: ${currentCity}` : ""}, suggest 3 unique locations or communities for long-term residency (staying 6-12 months or permanent). 
-  For each, provide:
-  - Name
-  - City, Country
-  - Why it fits for long-term residency (one sentence)
-  - Vibe (one word)
-  - Estimated monthly cost (USD)
-  
-  Return as a JSON array of objects with keys: name, location, reason, vibe, cost.`;
-
-  const response = await ai.models.generateContent({
-    model: GEMINI_MODEL,
-    contents: prompt,
-    config: {
-      responseMimeType: "application/json",
-    },
-  });
-
+export async function getRecommendations(interests: string[], journeyContext?: string, currentCity?: string) {
   try {
-    return JSON.parse(response.text || "[]");
-  } catch (e) {
-    console.error("Failed to parse recommendations", e);
+    const response = await fetch(`${API_BASE}/recommendations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ interests, journeyContext, currentCity }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to get recommendations');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching recommendations:', error);
     return [];
   }
 }
 
 export async function getCommunityInsights(locationName: string, customPrompt?: string) {
-  const prompt = customPrompt || `Tell me about the community and lifestyle for long-term residents in ${locationName}. Focus on community building, local integration, and long-term sustainability. Keep it concise (max 100 words).`;
-  
-  const response = await ai.models.generateContent({
-    model: GEMINI_MODEL,
-    contents: prompt,
-  });
-  
-  return response.text;
+  try {
+    const response = await fetch(`${API_BASE}/community-insights`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ locationName, customPrompt }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to get community insights');
+    }
+
+    const data = await response.json();
+    return data.insight;
+  } catch (error) {
+    console.error('Error fetching community insights:', error);
+    return "I'm currently analyzing the community data. Please check back later for personalized insights.";
+  }
+}
+
+export async function getAIStewardResponse(userMessage: string, locationData: any) {
+  const customPrompt = `User asks: "${userMessage}". You are the AI steward of the community in ${locationData.name}, ${locationData.country}. Context: ${locationData.description}. Give a brief, helpful response.`;
+  return await getCommunityInsights(locationData.name, customPrompt);
 }
