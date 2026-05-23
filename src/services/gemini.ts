@@ -1,5 +1,5 @@
-// API base URL - adjust if backend is on different port
-const API_BASE = 'http://localhost:3002/api';
+// API base URL - relative path works automatically on Cloudflare Pages
+const API_BASE = (import.meta.env.VITE_API_BASE || '/api').replace(/\/$/, '');
 
 export async function getRecommendations(interests: string[], journeyContext?: string, currentCity?: string) {
   try {

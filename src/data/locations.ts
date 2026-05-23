@@ -47,9 +47,31 @@ export interface Location {
     downpayment: number;
   } | null;
   image: string;
+  slug?: string; // Optional slug for standalone pages
 }
 
 export const LOCATIONS: Location[] = [
+  {
+    id: 'parana-683',
+    name: 'Paraná 683',
+    city: 'Buenos Aires',
+    country: 'Argentina 🇦🇷',
+    lat: -34.6025, lng: -58.3890,
+    type: 'asset',
+    phase: 6, tier: 1, score: 92,
+    yield: '11.8%', entry: '$30k',
+    monthlyRent: 1150,
+    purchasePrice: 220000,
+    accommodationType: 'Exclusive Apartment',
+    purpose: 'Investment / High Yield',
+    description: 'Exclusive heritage restoration project in San Nicolás. High-ceiling units with French balconies and premium finishes.',
+    intellectualTags: ['Heritage', 'Investment', 'Real Estate'],
+    risks: { conflicts: false, crime: false, property: false, disasters: false, short_season: false, visa_barriers: false },
+    highlights: { nomad_visa: false, good_internet: true, high_yield: true, happiness: false, air_quality: true },
+    interests: ['culture_i', 'gastronomy', 'investment'],
+    image: 'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&q=80',
+    slug: 'parana-683-exclusive.html'
+  },
   {
     id: 'buenos-aires-hub',
     name: 'Viamonte 1400',
@@ -131,7 +153,7 @@ export const LOCATIONS: Location[] = [
     yield: '12.0%', entry: '$18k',
     risks: { conflicts: false, crime: false, property: false, disasters: false, short_season: true, visa_barriers: false },
     highlights: { nomad_visa: false, good_internet: true, high_yield: true, happiness: true, air_quality: true },
-    interests: ['hiking', 'wellness', 'coworking', 'culture_i'],
+    interests: ['ski', 'hiking', 'wellness', 'coworking', 'culture_i'],
     image: 'https://picsum.photos/seed/bansko/800/600',
   },
   {
@@ -286,7 +308,7 @@ export const LOCATIONS: Location[] = [
     type: 'hub',
     phase: 7, tier: 1, score: 85,
     yield: '7.0%', entry: '$35k',
-    risks: { conflicts: true, crime: false, property: false, disasters: false, short_season: true, visa_barriers: false },
+    risks: { conflicts: false, crime: false, property: false, disasters: false, short_season: true, visa_barriers: false },
     highlights: { nomad_visa: true, good_internet: true, high_yield: false, happiness: true, air_quality: true },
     interests: ['coworking', 'culture_i', 'photography'],
     image: 'https://picsum.photos/seed/tallinn/800/600',
@@ -300,7 +322,7 @@ export const LOCATIONS: Location[] = [
     type: 'hub',
     phase: 6, tier: 2, score: 82,
     yield: '8.5%', entry: '$30k',
-    risks: { conflicts: true, crime: false, property: false, disasters: false, short_season: true, visa_barriers: false },
+    risks: { conflicts: false, crime: false, property: false, disasters: false, short_season: true, visa_barriers: false },
     highlights: { nomad_visa: true, good_internet: true, high_yield: true, happiness: true, air_quality: true },
     interests: ['culture_i', 'gastronomy', 'coworking'],
     image: 'https://picsum.photos/seed/warsaw/800/600',

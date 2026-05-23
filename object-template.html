@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slow Nomad | Назва Об'єкта — Шаблон Сторінки</title>
+  <meta name="description" content="Універсальний шаблон для презентації об'єктів та інвестиційних лотів Slow Nomad." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #C9A96E;
+      --gold-light: #E8D5A3;
+      --dark: #0D0D0D;
+      --dark2: #141414;
+      --dark3: #1E1E1E;
+      --text: #E8E0D0;
+      --text-muted: #8A847A;
+      --border: rgba(201, 169, 110, 0.2);
+      --accent: #C9A96E;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* PREMIUM LOGO & NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.9) 0%, transparent 100%);
+      backdrop-filter: blur(0px);
+      transition: all 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(13,13,13,0.98);
+      padding: 15px 8%;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .nav-actions { display: flex; gap: 20px; align-items: center; }
+    .btn-share {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
+    .btn-share:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      padding-bottom: 100px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80') center/cover;
+      filter: brightness(0.3);
+      z-index: 0;
+      transition: transform 10s ease;
+    }
+    .hero:hover .hero-bg { transform: scale(1.05); }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8%;
+      max-width: 1100px;
+    }
+    .hero-tag {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 7vw, 84px);
+      line-height: 1.1;
+      font-weight: 300;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
+      border-top: 1px solid var(--border);
+      padding-top: 30px;
+    }
+    .metric-item .label { font-size: 10px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; }
+    .metric-item .value { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--gold); }
+
+    /* SECTIONS */
+    section { padding: 100px 8%; max-width: 1300px; margin: 0 auto; }
+    .section-header { margin-bottom: 60px; }
+    .section-tag { color: var(--gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: #fff; margin-bottom: 30px; }
+    h2 strong { color: var(--gold); font-weight: 600; }
+
+    /* DYNAMIC CONTENT GRID */
+    .content-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; }
+    .main-text p { color: var(--text-muted); font-size: 17px; margin-bottom: 25px; line-height: 1.8; }
+    
+    /* MEDIA SLOTS */
+    .media-placeholder {
+      background: var(--dark2);
+      border: 1px dashed var(--border);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .media-placeholder:hover { border-color: var(--gold); color: var(--gold); }
+    .media-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* FINANCIALS TABLE */
+    .fin-table { width: 100%; border-collapse: collapse; margin: 30px 0; }
+    .fin-table td { padding: 15px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .fin-table td:last-child { text-align: right; color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 20px; }
+    .fin-table .total { color: var(--gold) !important; font-weight: 600; border-bottom: 2px solid var(--gold); }
+
+    /* INVESTORS LIST */
+    .investor-card {
+      background: var(--dark3);
+      padding: 30px;
+      border-left: 3px solid var(--gold);
+      margin-bottom: 20px;
+    }
+    .investor-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
+    .investor-name { font-weight: 600; color: #fff; }
+    .investor-share { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 22px; }
+
+    /* DOCUMENT DOWNLOADS */
+    .doc-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .doc-item {
+      padding: 20px;
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      color: var(--text);
+      transition: 0.3s;
+    }
+    .doc-item:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .doc-icon { color: var(--gold); font-size: 24px; }
+
+    /* EDIT BUTTON & PANEL */
+    .edit-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gold);
+      color: var(--dark);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      cursor: pointer;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .admin-panel {
+      position: fixed;
+      right: -400px;
+      top: 0;
+      width: 400px;
+      height: 100vh;
+      background: var(--dark2);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+      z-index: 1001;
+      padding: 40px;
+      transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+    .admin-panel.active { right: 0; }
+    .admin-panel h3 { color: var(--gold); margin-bottom: 30px; font-family: 'Cormorant Garamond', serif; font-size: 24px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px;
+      font-family: inherit;
+    }
+    .btn-save {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 15px;
+      width: 100%;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    footer {
+      padding: 60px 8%;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 968px) {
+      .content-grid { grid-template-columns: 1fr; gap: 40px; }
+      nav { padding: 15px 5%; }
+      section { padding: 60px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="#" class="nav-logo" id="display-logo">SLOW NOMAD / OBJECT</a>
+    <div class="nav-actions">
+      <button class="btn-share" onclick="sharePage()">Поділитись</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg" id="display-hero-img"></div>
+    <div class="hero-content">
+      <span class="hero-tag" id="display-loc">Локація · Статус · Категорія</span>
+      <h1 id="display-title">Універсальний Шаблон <em>Для Об'єктів</em></h1>
+      <div class="hero-metrics">
+        <div class="metric-item">
+          <div class="label">Загальна Площа</div>
+          <div class="value" id="display-metric-1">— m²</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Обсяг Інвестицій</div>
+          <div class="value" id="display-metric-2">USD 0.0M</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Очікуваний ROI</div>
+          <div class="value" id="display-metric-3">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROUTE & NEARBY -->
+  <section id="route" style="background: var(--dark3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <span class="section-tag">Локація та Зв'язки</span>
+    <h2>Маршрут та <strong>Оточення</strong></h2>
+    <div class="content-grid">
+      <div>
+        <h4 style="color: var(--gold); margin-bottom: 15px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Маршрут проходження</h4>
+        <p id="display-route" style="color: var(--text-muted); font-size: 15px; margin-bottom: 30px;">
+          Об'єкт розташований на стратегічному маршруті [Назва Маршруту]. Це забезпечує стабільний потік [Тип аудиторії] та зручну логістику.
+        </p>
+        
+        <h4 style="color: var(--gold); margin-bottom: 15px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Що відвідати поруч</h4>
+        <ul id="display-nearby" style="list-style: none; padding: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px;">📍 Назва локації #1 — 5 хв</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px;">📍 Назва локації #2 — 12 хв</li>
+        </ul>
+      </div>
+      <div class="media-container">
+        <div class="media-placeholder" style="aspect-ratio: 1/1;">
+          <span>[ КАРТА / МАРШРУТ ]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCIALS -->
+  <section id="financials" style="background: var(--dark2);">
+    <span class="section-tag">Економіка</span>
+    <h2>Розрахункові <strong>Дані</strong></h2>
+    <div class="content-grid">
+      <div>
+        <h4 style="color: var(--gold); margin-bottom: 20px;">Затратна частина (CAPEX)</h4>
+        <table class="fin-table" id="table-expenses">
+          <tr><td>Вартість придбання лота</td><td id="val-exp-1">$0</td></tr>
+          <tr><td>Реконструкція та мережі</td><td id="val-exp-2">$0</td></tr>
+          <tr><td>Юридичний супровід та податки</td><td id="val-exp-3">$0</td></tr>
+          <tr class="total"><td>Загальний бюджет</td><td id="val-exp-total">$0</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4 style="color: var(--gold); margin-bottom: 20px;">Прогноз доходності (OPEX/Sales)</h4>
+        <table class="fin-table" id="table-income">
+          <tr><td>Оціночна вартість виходу</td><td id="val-inc-1">$0</td></tr>
+          <tr><td>Чистий операційний дохід (рік)</td><td id="val-inc-2">$0</td></tr>
+          <tr class="total"><td>Прогнозований прибуток (чистий)</td><td id="val-inc-total">$0</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTORS -->
+  <section id="investors">
+    <span class="section-tag">Учасники Проекту</span>
+    <h2>Група <strong>Інвесторів</strong></h2>
+    <div class="investor-list" id="display-investors">
+      <div class="investor-card">
+        <div class="investor-header">
+          <span class="investor-name">Slow Nomad (Core Group)</span>
+          <span class="investor-share">25%</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted);">Роль: Управління, архітектурний нагляд, маркетинг лота.</p>
+      </div>
+      <div class="investor-card">
+        <div class="investor-header">
+          <span class="investor-name">Пул Співінвесторів</span>
+          <span class="investor-share">75%</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted);">Відкрито для входу: [Сума / Доля].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section id="docs" style="padding-bottom: 160px;">
+    <span class="section-tag">Архів</span>
+    <h2>Технічна <strong>Документація</strong></h2>
+    <div class="doc-list" id="display-docs">
+      <a href="#" class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div>
+          <div style="font-size: 14px; font-weight: 500;">Пре-фізибіліті звіт</div>
+          <div style="font-size: 12px; color: var(--text-muted);">PDF · 12 MB</div>
+        </div>
+      </a>
+      <a href="#" class="doc-item">
+        <span class="doc-icon">🗺️</span>
+        <div>
+          <div style="font-size: 14px; font-weight: 500;">Зонінг та дозволи</div>
+          <div style="font-size: 12px; color: var(--text-muted);">JPG · 4 MB</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 · Slow Nomad Ecosystem · Конфіденційні Дані</p>
+  </footer>
+
+  <!-- ADMIN / EDIT PANEL -->
+  <button class="edit-toggle" onclick="toggleAdminPanel()">✎</button>
+  <div class="admin-panel" id="edit-panel">
+    <button style="position:absolute; right:20px; top:20px; background:none; border:none; color:var(--text-muted); cursor:pointer;" onclick="toggleAdminPanel()">✕</button>
+    <h3>Редактор Об'єкта</h3>
+    
+    <div class="form-group">
+      <label>Назва Об'єкта</label>
+      <input type="text" id="input-title" placeholder="Назва">
+    </div>
+    
+    <div class="form-group">
+      <label>Локація / Теги</label>
+      <input type="text" id="input-loc" placeholder="Напр: Palermo, Buenos Aires">
+    </div>
+
+    <div class="form-group">
+      <label>Опис</label>
+      <textarea id="input-desc" rows="5" placeholder="Основна інформація"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Метрика 1 (Площа)</label>
+      <input type="text" id="input-m1" placeholder="1.000 m²">
+    </div>
+
+    <div class="form-group">
+      <label>Метрика 2 (Інвестиції)</label>
+      <input type="text" id="input-m2" placeholder="USD 1.5M">
+    </div>
+
+    <div class="form-group">
+      <label>Метрика 3 (ROI)</label>
+      <input type="text" id="input-m3" placeholder="45%">
+    </div>
+
+    <hr style="border:0; border-top:1px solid var(--border); margin:30px 0;">
+
+    <div class="form-group">
+      <label>URL Головного фото</label>
+      <input type="text" id="input-hero-url" placeholder="https://...">
+    </div>
+
+    <button class="btn-save" onclick="saveChanges()">Застосувати зміни</button>
+    <p style="font-size:10px; color:var(--text-muted); margin-top:15px; text-align:center;">
+      Примітка: ці зміни зберігаються лише для поточної сесії. <br>Для постійного збереження скопіюйте згенерований код.
+    </p>
+  </div>
+
+  <script>
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Admin Panel Logic
+    function toggleAdminPanel() {
+      document.getElementById('edit-panel').classList.toggle('active');
+    }
+
+    function saveChanges() {
+      const title = document.getElementById('input-title').value;
+      const loc = document.getElementById('input-loc').value;
+      const desc = document.getElementById('input-desc').value;
+      const m1 = document.getElementById('input-m1').value;
+      const m2 = document.getElementById('input-m2').value;
+      const m3 = document.getElementById('input-m3').value;
+      const heroUrl = document.getElementById('input-hero-url').value;
+
+      if(title) document.getElementById('display-title').innerText = title;
+      if(loc) document.getElementById('display-loc').innerText = loc;
+      if(desc) document.getElementById('display-description').innerHTML = `<p>${desc.replace(/\n/g, '</p><p>')}</p>`;
+      if(m1) document.getElementById('display-metric-1').innerText = m1;
+      if(m2) document.getElementById('display-metric-2').innerText = m2;
+      if(m3) document.getElementById('display-metric-3').innerText = m3;
+      if(heroUrl) document.getElementById('display-hero-img').style.backgroundImage = `url('${heroUrl}')`;
+
+      toggleAdminPanel();
+      alert('Зміни застосовано візуально! Для збереження в системі натисніть на мапі "Зберегти об\'єкт"');
+    }
+
+    // Share API
+    async function sharePage() {
+      const shareData = {
+        title: document.getElementById('display-title').innerText,
+        text: 'Презентація інвестиційного об\'єкта Slow Nomad',
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else {
+          // Fallback
+          prompt('Скопіюйте посилання для пересилки:', window.location.href);
+        }
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    }
+
+    // Initial load from URL params (optional bonus for Dmitry)
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      if(params.has('title')) document.getElementById('display-title').innerText = params.get('title');
+    };
+  </script>
+</body>
+</html>

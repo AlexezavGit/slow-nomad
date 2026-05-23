@@ -1,0 +1,55 @@
+{
+  "project": "Paraná 683",
+  "id": "parana-683",
+  "concept": "5-Floor Residential Sale + Ground-Floor Commercial Rent",
+  "financials": {
+    "acquisition": {
+      "price": 1300000,
+      "taxes": 131000,
+      "total": 1431000,
+      "source": "Zonaprop / Argenprop benchmarking"
+    },
+    "renovation": {
+      "cost_psm": 1000,
+      "area_sqm": 1050,
+      "buffer_percent": 15,
+      "total": 1207500,
+      "source": "Architectural feasibility study"
+    },
+    "exit": {
+      "total_income_annual": 949800,
+      "hotel_income": 919800,
+      "comm_income": 30000,
+      "formula": "[Hotel_Income + Comm_Income] / [Acquisition_Total + Renovation_Total]",
+      "gross_yield_target": 38.28
+    }
+  },
+  "map_layers": [
+    { "id": "global_peace_index", "category": "security", "source": "Vision of Humanity", "frequency": "annually", "priority": "MUST" },
+    { "id": "crime_index", "category": "security", "source": "Numbeo", "frequency": "quarterly", "priority": "MUST" },
+    { "id": "corruption_cpi", "category": "security", "source": "Transparency International", "frequency": "annually", "priority": "MUST" },
+    { "id": "active_conflicts", "category": "security", "source": "ACLED", "frequency": "weekly", "priority": "MUST" },
+    { "id": "travel_warnings", "category": "security", "source": "Gov Alerts", "frequency": "real-time", "priority": "MUST" },
+    { "id": "air_quality", "category": "climate", "source": "OpenAQ", "frequency": "real-time", "priority": "HIGH" },
+    { "id": "internet_speed", "category": "infrastructure", "source": "Ookla", "frequency": "quarterly", "priority": "MUST" },
+    { "id": "nomad_visa_status", "category": "business", "source": "NomadVisaGuide", "frequency": "monthly", "priority": "MUST" },
+    { "id": "lgbtq_safety", "category": "society", "source": "Equaldex", "priority": "MUST" }
+  ],
+  "assets": {
+    "video_bg": "https://www.youtube.com/embed/S6z7S_Zl_mY?autoplay=1&mute=1&loop=1",
+    "gallery": [
+      "./WhatsApp Image 2026-03-12 at 15.10.46.jpeg",
+      "./WhatsApp Image 2026-03-12 at 15.10.48.jpeg",
+      "./WhatsApp Image 2026-03-12 at 15.10.49.jpeg",
+      "./свет.jpeg",
+      "./стейдж.jpeg",
+      "./building-sketch.png"
+    ]
+  },
+  "admin_key": "Kasatyk",
+  "social_sharing": {
+    "networks": ["instagram", "linkedin", "twitter", "facebook"],
+    "og_title": "Paraná 683 - Living Map Opportunity",
+    "og_description": "Exclusive heritage restoration with 38.2% target gross yield in Buenos Aires."
+  }
+}

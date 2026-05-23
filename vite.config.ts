@@ -15,6 +15,19 @@ export default defineConfig(({mode}) => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          baDeal: path.resolve(__dirname, 'ba-deal.html'),
+          paranaExclusive: path.resolve(__dirname, 'parana-683-exclusive.html'),
+          objectTemplate: path.resolve(__dirname, 'object-template.html'),
+          admin: path.resolve(__dirname, 'backend/admin.html'),
+          backend: path.resolve(__dirname, 'backend/backend.html'),
+          nomadJourney: path.resolve(__dirname, 'backend/nomad_club_journey.html'),
+        },
+      },
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

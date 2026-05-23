@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraná 683 | Living Map Dossier</title>
+    
+    <!-- Social Meta Tags -->
+    <meta property="og:title" content="Paraná 683 - Exclusive Heritage Development">
+    <meta property="og:description" content="38.2% ROI | 5 Floors Sale + Ground Floor Commercial Rent. Buenos Aires' most iconic transition.">
+    <meta property="og:image" content="./гейн.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --gold: #D4AF37; --dark: #0A0A0A; --gray: #1A1A1A; --text: #E0E0E0; --accent: #4ADE80; }
+        body { background: var(--dark); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* Hero with Video Background */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; z-index: -1; filter: brightness(0.4); }
+        .hero-content { text-align: center; max-width: 900px; padding: 20px; z-index: 10; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 10vw, 6rem); color: var(--gold); margin: 0; }
+        
+        /* Modular Sections */
+        section { padding: 80px 5%; border-bottom: 1px solid #222; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        
+        /* Financial Module */
+        .card-finance { background: #111; padding: 40px; border-radius: 20px; border: 1px solid #333; position: relative; }
+        .roi-display { font-size: 4rem; color: var(--gold); font-weight: 600; margin: 10px 0; }
+        .formula-hint { font-size: 11px; color: #666; font-family: monospace; display: block; margin-top: 10px; }
+        
+        /* Map Layers Module (53 Items) */
+        .layer-box { background: var(--gray); padding: 15px; border-radius: 8px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+        /* Gallery */
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .gallery img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; filter: grayscale(1); transition: 0.3s; }
+        .gallery img:hover { filter: grayscale(0); transform: scale(1.02); }
+
+        /* Admin Trigger */
+        #admin-lock { position: fixed; bottom: 20px; right: 20px; cursor: pointer; opacity: 0.3; }
+        #admin-lock:hover { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <!-- Canonical Street Walkthrough Video -->
+        <iframe class="hero-video" src="https://www.youtube.com/embed/S6z7S_Zl_mY?autoplay=1&mute=1&loop=1&playlist=S6z7S_Zl_mY&controls=0&showinfo=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+        <div class="hero-content">
+            <h1>Paraná 683</h1>
+            <p style="letter-spacing: 4px; text-transform: uppercase;">Heritage Restoration • Buenos Aires</p>
+        </div>
+    </section>
+
+    <!-- Financial Strategy Module -->
+    <section id="strategy">
+        <h2>Модель інвестицій: Гібридний розрахунок</h2>
+        <div class="grid">
+            <div class="card-finance">
+                <span class="badge">Target ROI</span>
+                <div class="roi-display" id="roi-val">38.28%</div>
+                <p><strong>Концепція:</strong> Продаж нових 5 поверхів + Оренда комерційних площ.</p>
+                <code class="formula-hint">Yield = [$949,800 revenue] / [$1,431,000 acq + $1,207,500 reno]</code>
+            </div>
+            
+            <div class="card-finance">
+                <h3>Загальний CAPEX</h3>
+                <p>Acquisition: $1,431,000</p>
+                <p>Renovation: $1,207,500</p>
+                <p><strong>Total: $2,638,500</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Layers Module (53 Layers Interface) -->
+    <section id="ecosystem">
+        <h2>Екосистема Місця (53 шари мапи)</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+            <div class="layer-box"><span>Safety Index</span> <div class="status-dot"></div></div>
+            <div class="layer-box"><span>Internet (Ookla)</span> <div class="status-dot"></div></div>
+            <div class="layer-box"><span>Happiness WHR</span> <div class="status-dot"></div></div>
+            <div class="layer-box"><span>Climate NASA</span> <div class="status-dot"></div></div>
+            <div class="layer-box"><span>Corruption CPI</span> <div class="status-dot"></div></div>
+            <div class="layer-box"><span>Nomad Visa</span> <div class="status-dot"></div></div>
+            <!-- More dynamic layers would follow -->
+        </div>
+    </section>
+
+    <!-- Gallery of Local Assets -->
+    <section id="gallery">
+        <h2>Візуальний контекст</h2>
+        <div class="gallery">
+            <img src="./стейдж.jpeg" alt="Stage">
+            <img src="./свет.jpeg" alt="Light">
+            <img src="./building-sketch.png" alt="Sketch">
+            <img src="./WhatsApp Image 2026-03-12 at 15.10.46.jpeg" alt="Detail 1">
+            <img src="./WhatsApp Image 2026-03-12 at 15.10.48.jpeg" alt="Detail 2">
+            <img src="./WhatsApp Image 2026-03-12 at 15.10.49.jpeg" alt="Detail 3">
+        </div>
+    </section>
+
+    <div id="admin-lock" onclick="openAdmin()">✎</div>
+
+    <script>
+        const MASTER_KEY = "Kasatyk";
+        function openAdmin() {
+            const pass = prompt("Master Key:");
+            if (pass === MASTER_KEY) {
+                window.location.href = "./backend/admin.html";
+            }
+        }
+        
+        // Taylor-made logic simulation
+        window.addEventListener('load', () => {
+            console.log("Location Page MVP Ready.");
+            // Here we would call the Aggregator Logic in a real deployment
+        });
+    </script>
+</body>
+</html>
